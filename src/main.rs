@@ -2,7 +2,6 @@ use rand::distr::{Alphanumeric, SampleString};
 use std::{thread, time::Duration, sync::mpsc};
 use serde::{Serialize, Deserialize};
 use rusqlite::{Connection, Result, params};
-//use rusqlite::NO_PARAMS;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -36,9 +35,6 @@ fn main() {
             let serialized_message = serde_json::to_string(&threads_message).unwrap(); 
             tx.send(serialized_message).unwrap();          
 
-            //println!("{i}) Random 255-chars string: {}", randomString);
-            //println!("threadsMessage.timestamp_sent: {}", threads_message.timestamp_sent);          
-
             thread::sleep(Duration::from_secs(1));            
         }
     });
@@ -48,7 +44,6 @@ fn main() {
             let received_message = rx.recv().unwrap(); 
             let mut deserialized_message: CustomMessage = serde_json::from_str(&received_message).unwrap();
             deserialized_message.timestamp = get_current_timestamp(); 
-            //println!("Received message: {:?}", deserialized_message);
             insert_message(&conn, deserialized_message);
             //thread::sleep(Duration::from_secs(2)); 
         }
@@ -62,8 +57,6 @@ fn connect_db() -> Result<Connection> {
     let path = "./timer_db.db";
     let db: Connection = Connection::open(path)?;
     
-    //println!("111");
-    //println!("{}", db.is_autocommit());
     Ok(db)
 }
 
