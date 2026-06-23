@@ -11,7 +11,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
         timestamp_sent: i64
     }
 
-fn main() {  
+fn main() { 
 
     let conn = connect_db().unwrap();
     create_table(&conn);
@@ -35,7 +35,7 @@ fn main() {
             let serialized_message = serde_json::to_string(&threads_message).unwrap(); 
             tx.send(serialized_message).unwrap();          
 
-            thread::sleep(Duration::from_secs(1));            
+            thread::sleep(Duration::from_secs(60));            
         }
     });
     
