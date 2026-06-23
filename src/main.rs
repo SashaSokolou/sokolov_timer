@@ -39,7 +39,7 @@ fn main() {
             //println!("{i}) Random 255-chars string: {}", randomString);
             //println!("threadsMessage.timestamp_sent: {}", threads_message.timestamp_sent);          
 
-            thread::sleep(Duration::from_secs(60));            
+            thread::sleep(Duration::from_secs(1));            
         }
     });
     
@@ -48,7 +48,7 @@ fn main() {
             let received_message = rx.recv().unwrap(); 
             let mut deserialized_message: CustomMessage = serde_json::from_str(&received_message).unwrap();
             deserialized_message.timestamp = get_current_timestamp(); 
-            println!("Received message: {:?}", deserialized_message);
+            //println!("Received message: {:?}", deserialized_message);
             insert_message(&conn, deserialized_message);
             //thread::sleep(Duration::from_secs(2)); 
         }
@@ -62,8 +62,8 @@ fn connect_db() -> Result<Connection> {
     let path = "./timer_db.db";
     let db: Connection = Connection::open(path)?;
     
-    println!("111");
-    println!("{}", db.is_autocommit());
+    //println!("111");
+    //println!("{}", db.is_autocommit());
     Ok(db)
 }
 
@@ -86,7 +86,7 @@ fn gen_random_string() -> String {
 fn get_current_timestamp() -> i64 {
     let tmstmp = SystemTime::now();
     let after_start_unix_epoch = tmstmp.duration_since(UNIX_EPOCH).expect("some digits");
-    after_start_unix_epoch.as_secs() as i64
+    after_start_unix_epoch.as_millis() as i64
 }
 
 fn insert_message(conn: &Connection, message: CustomMessage) -> Result<()> {
