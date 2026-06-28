@@ -30,7 +30,7 @@ fn main() {
             let serialized_message = serde_json::to_string(&threads_message).unwrap();
             tx.send(serialized_message).unwrap();
 
-            thread::sleep(Duration::from_secs(1));
+            thread::sleep(Duration::from_secs(60));
         }
     });
 
