@@ -4,6 +4,3 @@ members = [
     "crate-writer",
     "crate-reader",
 ]
-
-[database]
-url = "sqlite://local_database.db"

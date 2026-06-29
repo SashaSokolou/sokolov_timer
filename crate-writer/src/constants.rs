@@ -1,0 +1,3 @@
+pub const SLEEP_DURATION_THREAD: u64 = 60000;
+pub const MAX_DB_LINES_PLUS_ONE: i32 = 31;
+pub const MAX_SIZE_DB_LINE_LENGTH: usize = 255;
